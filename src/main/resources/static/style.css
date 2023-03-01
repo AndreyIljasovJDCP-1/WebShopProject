@@ -1,0 +1,137 @@
+
+h1{
+color: goldenrod;
+}
+h2{
+color: yellowgreen;
+}
+h3{
+color: LightSeaGreen;
+}
+p{
+color: DarkGoldenRod;
+font-size: 20px;
+}
+span {
+color: DarkGoldenRod;
+font-size: 20px;
+}
+input {
+background: AntiqueWhite;
+color: LightSeaGreen;
+}
+summary{
+color: blueviolet;
+font-size: 25px;
+}
+details{
+color: DarkGoldenRod;
+font-size: 20px;
+}
+figcaption{
+color: DarkGoldenRod;
+font-size: 1.5em;
+}
+li{
+color: maroon;
+font-size: 20px;
+}
+body{
+background-image: url('sky.png');
+background-repeat: no-repeat;
+background-position: center center;
+height: 700px;
+background-size: cover;
+background-attachment: fixed;
+/*background: black;*/
+}
+a{
+color: goldenrod;
+font-weight:bold;
+}
+hr{
+border: 1px yellowgreen solid;
+margin: 0;
+padding: 0;
+}
+#list{
+background-image: url('sky1.png');
+/*background-repeat: no-repeat;
+background-position: center center;
+height: 700px;
+background-size: cover;
+background-attachment: fixed;
+background: black;*/
+}
+
+#single{
+background: black;
+/*background-image: url('nightsky.png');*/
+
+}
+#error{
+background-image: url('starsky.png');
+}
+#table{
+background: black;
+
+/*
+background-image: url('sky1.png');
+background-repeat: no-repeat;
+background-position: center center;
+height: 700px;
+background-size: cover;
+background-attachment: fixed;
+background: black;*/
+}
+table {
+  border-collapse: collapse;
+  border: 1px LightSeaGreen solid;
+  color: goldenrod;
+}
+td {
+  border: 1px LightSeaGreen solid;
+  padding: 5px;
+  text-align: center;
+}
+
+thead {
+  /*background: lightgray;*/
+  text-align: center;
+  font-weight: 600;
+  font-size: 20px;
+  border: 2px solid LightSeaGreen;
+  color: goldenrod;
+}
+#td-title {
+text-align: left;
+ /*font-size: 20px;*/
+}
+td img {
+border: 1px DarkGreen solid;
+}
+#save-button{
+font-weight: bold;
+margin-left:50px;
+color:goldenrod;
+background:brown;
+border: 2px solid maroon;
+border-radius: 20%;
+}
+#back-button{
+font-weight: bold;
+margin-left:50px;
+color:yellowgreen;
+background:DarkCyan;
+border: 2px solid green;
+border-radius: 20%;
+}
+#ref-list{
+margin-left: 50px;
+}
+#ref-home{
+margin-left: 50px;
+}
+#ref-delete{
+margin-left: 50px;
+}

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="/style.css">
+    <title>Список товаров</title>
+</head>
+<body id="table">
+<h2>Список товаров</h2>
+
+<form action="/products" method="get">
+    <span>Название товара: <input type="text" name="title"></span>
+    <input type="submit" value="Поиск">
+</form>
+
+<div th:if="!${#lists.isEmpty(products)}">
+    <table>
+        <thead>
+        <tr>
+            <td>№ п/п</td>
+            <td>Название</td>
+            <td>Цена</td>
+            <td>Описание</td>
+        </tr>
+        </thead>
+        <tbody th:each="el,i : ${products}" class="table-body">
+        <tr>
+            <td th:text="${i.count}"></td>
+            <td th:text="${el.title}" id="td-title"></td>
+            <td th:text="${el.price}"></td>
+            <td>
+                <a th:href="@{/product/{id}(id=${el.id})}">Подробнее</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<div th:if="${#lists.isEmpty(products)}">
+    <span>Товаров нет</span>
+</div>
+<br>
+<hr>
+<br>
+<h3>Добавление товара</h3>
+<form action="/product" method="post" enctype="multipart/form-data">
+    <span>Название товара: <input type="text" name="title"></span><br>
+    <span>Описание товара: <input type="text" name="description"></span><br>
+    <span>Цена товара: <input type="number" name="price"></span><br>
+    <span>Город: <input type="text" name="city"></span><br>
+    <span>Имя пользователя: <input type="text" name="author"></span><br>
+    <span>Загрузите фото: <input type="file" name="files" multiple required></span><br>
+    <input type="submit" value="Добавить товар">
+</form>
+</body>
+</html>
