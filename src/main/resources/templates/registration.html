@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/style.css">
+    <title>Web-shop</title>
+</head>
+<body>
+<h3>Sign UP</h3>
+<form th:action="@{/registration}" method="post">
+    <span>Имя пользователя: <input type="text" name="name" required></span><br>
+    <span>E-mail: <input type="email" name="email" required></span><br>
+    <span>Номер телефона: <input type="text" name="phoneNumber"></span><br>
+    <span>Password: <input type="password" name="password" required></span><br>
+    <input type="submit" value="Sign UP">
+</form>
+<div th:if="${errorCreateUser}">
+    <span style="color:red" th:text="'Пользователь e-mail: '+${errorCreateUser}+' уже зарегистрирован'"></span>
+</div>
+</body>
+</html>

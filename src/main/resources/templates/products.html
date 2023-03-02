@@ -6,9 +6,10 @@
     <title>Список товаров</title>
 </head>
 <body id="table">
-<h2>Список товаров</h2>
+<h2>Список товаров | <a href="/login">Sign In</a></h2>
 
-<form action="/products" method="get">
+
+<form th:action="@{/products}" method="get">
     <span>Название товара: <input type="text" name="title"></span>
     <input type="submit" value="Поиск">
 </form>
@@ -43,7 +44,7 @@
 <hr>
 <br>
 <h3>Добавление товара</h3>
-<form action="/product" method="post" enctype="multipart/form-data">
+<form th:action="@{/product}" method="post" enctype="multipart/form-data">
     <span>Название товара: <input type="text" name="title"></span><br>
     <span>Описание товара: <input type="text" name="description"></span><br>
     <span>Цена товара: <input type="number" name="price"></span><br>
@@ -53,4 +54,8 @@
     <input type="submit" value="Добавить товар">
 </form>
 </body>
+
+<form th:action="@{/logout}" method="post">
+    <input type="submit" value="Log OUT">
+</form>
 </html>

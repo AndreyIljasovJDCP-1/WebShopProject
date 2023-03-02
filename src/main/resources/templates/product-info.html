@@ -39,7 +39,7 @@
 
 <br><hr><br>
 <h3>Удаление товара</h3>
-<form th:action="'/product/delete/'+${product.id}" method="post">
+<form th:action="@{'/product/delete/'+${product.id}}" method="post">
     <input type="submit" value="удалить товар">
 </form>
 </body>

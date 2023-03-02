@@ -20,6 +20,22 @@ input {
 background: AntiqueWhite;
 color: LightSeaGreen;
 }
+button {
+font-weight: bold;
+color:yellowgreen;
+background:DarkCyan;
+border: 2px solid green;
+border-radius: 15%;
+}
+a{
+color: goldenrod;
+font-weight:bold;
+}
+hr{
+border: 1px yellowgreen solid;
+margin: 0;
+padding: 0;
+}
 summary{
 color: blueviolet;
 font-size: 25px;
@@ -37,36 +53,11 @@ color: maroon;
 font-size: 20px;
 }
 body{
-background-image: url('sky.png');
-background-repeat: no-repeat;
-background-position: center center;
-height: 700px;
-background-size: cover;
-background-attachment: fixed;
-/*background: black;*/
-}
-a{
-color: goldenrod;
-font-weight:bold;
-}
-hr{
-border: 1px yellowgreen solid;
-margin: 0;
-padding: 0;
-}
-#list{
-background-image: url('sky1.png');
-/*background-repeat: no-repeat;
-background-position: center center;
-height: 700px;
-background-size: cover;
-background-attachment: fixed;
-background: black;*/
+background: black;
 }
 
 #single{
 background: black;
-/*background-image: url('nightsky.png');*/
 
 }
 #error{
@@ -74,15 +65,6 @@ background-image: url('starsky.png');
 }
 #table{
 background: black;
-
-/*
-background-image: url('sky1.png');
-background-repeat: no-repeat;
-background-position: center center;
-height: 700px;
-background-size: cover;
-background-attachment: fixed;
-background: black;*/
 }
 table {
   border-collapse: collapse;
@@ -126,12 +108,4 @@ background:DarkCyan;
 border: 2px solid green;
 border-radius: 20%;
 }
-#ref-list{
-margin-left: 50px;
-}
-#ref-home{
-margin-left: 50px;
-}
-#ref-delete{
-margin-left: 50px;
-}
+

@@ -13,10 +13,14 @@ import java.io.IOException;
 
 @Slf4j
 @Controller
-@RequestMapping("/")
 public class ProductController {
     @Autowired
     ProductService service;
+
+    @GetMapping("/")
+    public String login() {
+        return "hello";
+    }
 
     @GetMapping("/products")
     public String products(

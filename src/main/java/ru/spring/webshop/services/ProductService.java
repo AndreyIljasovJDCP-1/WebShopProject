@@ -10,9 +10,7 @@ import ru.spring.webshop.repositories.ProductRepository;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -35,10 +33,6 @@ public class ProductService {
                 image.setPreview(true);
             }
         }
-        var fileNames = Arrays.stream(files)
-                .map(MultipartFile::getOriginalFilename)
-                .collect(Collectors.joining(", "));
-        log.info("загружаемый массив файлов: {};", fileNames);
         // получить id картинки
         var productDB = repository.save(product);
         productDB.setPreviewImageId(productDB.getImages().get(0).getId());
