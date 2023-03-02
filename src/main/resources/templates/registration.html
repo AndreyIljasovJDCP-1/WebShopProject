@@ -6,13 +6,13 @@
     <title>Web-shop</title>
 </head>
 <body>
-<h3>Sign UP</h3>
+<h3>Регистрация</h3>
 <form th:action="@{/registration}" method="post">
     <span>Имя пользователя: <input type="text" name="name" required></span><br>
     <span>E-mail: <input type="email" name="email" required></span><br>
     <span>Номер телефона: <input type="text" name="phoneNumber"></span><br>
     <span>Password: <input type="password" name="password" required></span><br>
-    <input type="submit" value="Sign UP">
+    <input type="submit" value="Sign up">
 </form>
 <div th:if="${errorCreateUser}">
     <span style="color:red" th:text="'Пользователь e-mail: '+${errorCreateUser}+' уже зарегистрирован'"></span>

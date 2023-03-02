@@ -3,17 +3,18 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <link rel="stylesheet" href="/style.css">
-    <title>Список товаров</title>
+    <title>Web-shop</title>
 </head>
 <body id="table">
-<h2>Список товаров | <a href="/login">Sign In</a></h2>
-
-
-<form th:action="@{/products}" method="get">
-    <span>Название товара: <input type="text" name="title"></span>
-    <input type="submit" value="Поиск">
-</form>
-
+<h3 th:if="${user==null}"><a href="/login">Log in</a><span>    </span><a href="/registration">Sign up</a></h3>
+<div th:if="${user!=null}">
+    <form th:action="@{/logout}" method="post">
+        <span th:text="${user.name}"></span>
+        <input type="submit" value="Log out">
+    </form>
+</div>
+<hr>
+<h2>Ассортимент</h2>
 <div th:if="!${#lists.isEmpty(products)}">
     <table>
         <thead>
@@ -35,6 +36,10 @@
         </tr>
         </tbody>
     </table>
+    <form th:action="@{/}" method="get">
+        <span>Название товара: <input type="text" name="title"></span>
+        <input type="submit" value="поиск">
+    </form>
 </div>
 
 <div th:if="${#lists.isEmpty(products)}">
@@ -43,6 +48,7 @@
 <br>
 <hr>
 <br>
+<div th:if="${user ne null}">
 <h3>Добавление товара</h3>
 <form th:action="@{/product}" method="post" enctype="multipart/form-data">
     <span>Название товара: <input type="text" name="title"></span><br>
@@ -51,11 +57,8 @@
     <span>Город: <input type="text" name="city"></span><br>
     <span>Имя пользователя: <input type="text" name="author"></span><br>
     <span>Загрузите фото: <input type="file" name="files" multiple required></span><br>
-    <input type="submit" value="Добавить товар">
+    <input type="submit" value="добавить">
 </form>
+</div>
 </body>
-
-<form th:action="@{/logout}" method="post">
-    <input type="submit" value="Log OUT">
-</form>
 </html>

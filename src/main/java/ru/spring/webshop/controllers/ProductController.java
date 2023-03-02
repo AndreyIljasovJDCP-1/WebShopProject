@@ -8,25 +8,26 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import ru.spring.webshop.models.Product;
 import ru.spring.webshop.services.ProductService;
+import ru.spring.webshop.services.UserService;
 
 import java.io.IOException;
+import java.security.Principal;
 
 @Slf4j
 @Controller
 public class ProductController {
     @Autowired
     ProductService service;
+    @Autowired
+    UserService userService;
+
 
     @GetMapping("/")
-    public String login() {
-        return "hello";
-    }
-
-    @GetMapping("/products")
     public String products(
             @RequestParam(name = "title", required = false) String title,
-            Model model) {
+            Model model, Principal principal) {
         model.addAttribute("products", service.getProducts(title));
+        model.addAttribute("user", principal);
         return "products";
     }
 

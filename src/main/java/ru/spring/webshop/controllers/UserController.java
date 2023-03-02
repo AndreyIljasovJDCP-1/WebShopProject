@@ -29,12 +29,6 @@ public class UserController {
             model.addAttribute("errorCreateUser", user.getEmail());
             return "registration";
         }
-        return "redirect:/login";
+        return "redirect:/";
     }
-
-    @GetMapping("/hello")
-    public String securityUrl() {
-        return "hello";
-    }
-
 }
