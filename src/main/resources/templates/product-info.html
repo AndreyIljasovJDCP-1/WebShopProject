@@ -7,31 +7,31 @@
     <title>Подробно о товаре</title>
 </head>
 <body id="single">
-<h2>Список товаров</h2>
+<h2>Информация о товаре</h2>
 <table>
     <thead>
     <tr>
         <td>Название</td>
-        <td>Цена</td>
         <td>Описание</td>
+        <td>Цена</td>
         <td>Город</td>
         <td>Автор</td>
-        <td>Мини-фото</td>
+        <td>Телефон</td>
     </tr>
     </thead>
     <tbody class="table-body">
     <tr>
         <td th:text="${product.title}" id="td-title"></td>
-        <td th:text="${product.price}"></td>
         <td th:text="${product.description}"></td>
+        <td th:text="${product.price}"></td>
         <td th:text="${product.city}"></td>
-        <td th:text="${product.author}"></td>
-        <td><img th:src="'/images/'+${product.previewImageId}" height="50 px"></td>
+        <td th:text="${product.user.name}"></td>
+        <td th:text="${product.user.phoneNumber}"></td>
     </tr>
     </tbody>
 </table><br>
 
-<h3>Все фото</h3>
+<h3>Фото товара</h3>
 
 <div th:each="image: ${product.images}">
     <img th:src="'/images/'+${image.id}" height="100 px"><br><br>

@@ -21,15 +21,21 @@
         <tr>
             <td>№ п/п</td>
             <td>Название</td>
-            <td>Цена</td>
             <td>Описание</td>
+            <td>Цена</td>
+            <td>Мини-фото</td>
+            <td>Подробнее</td>
         </tr>
         </thead>
         <tbody th:each="el,i : ${products}" class="table-body">
         <tr>
             <td th:text="${i.count}"></td>
             <td th:text="${el.title}" id="td-title"></td>
+            <td th:text="${el.description}"></td>
             <td th:text="${el.price}"></td>
+            <td>
+                <img th:src="@{/images/{id}(id=${el.previewImageId})}" height="30 px">
+            </td>
             <td>
                 <a th:href="@{/product/{id}(id=${el.id})}">Подробнее</a>
             </td>
@@ -55,7 +61,6 @@
     <span>Описание товара: <input type="text" name="description"></span><br>
     <span>Цена товара: <input type="number" name="price"></span><br>
     <span>Город: <input type="text" name="city"></span><br>
-    <span>Имя пользователя: <input type="text" name="author"></span><br>
     <span>Загрузите фото: <input type="file" name="files" multiple required></span><br>
     <input type="submit" value="добавить">
 </form>

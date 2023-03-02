@@ -23,12 +23,14 @@ public class Product {
     private String description;
     private int price;
     private String city;
-    private String author;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "product")
     private List<Image> images = new ArrayList<>();
 
     private Long previewImageId;
+    @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
+    @JoinColumn
+    private User user;
     private LocalDateTime createdDateTime;
 
     @PrePersist
@@ -41,7 +43,6 @@ public class Product {
         this.description = description;
         this.price = price;
         this.city = city;
-        this.author = author;
     }
 
     public void addImage(Image image) {
