@@ -8,6 +8,8 @@ import ru.spring.webshop.models.Role;
 import ru.spring.webshop.models.User;
 import ru.spring.webshop.repositories.UserRepository;
 
+import java.util.List;
+
 @Slf4j
 @Service
 public class UserService {
@@ -25,11 +27,31 @@ public class UserService {
         user.setActive(true);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.getRoles().add(Role.ROLE_USER);
-        log.info("Saving new User with email: {}",email);
+        log.info("Saving new User with email: {}; role: {}", email, Role.ROLE_USER);
         userRepository.save(user);
         return true;
     }
-    public User getUser(String email){
-        return userRepository.findByEmail(email).orElse(null);
+
+    public List<User> all() {
+        return userRepository.findAll();
+    }
+
+    public void banUser(Long id) {
+        var user = userRepository.findById(id).orElse(null);
+        if (user != null) {
+            user.setActive(!user.isActive());
+            log.info("Бан пользователя id: {}; email: {}; active: {};", user.getId(), user.getEmail(), user.isActive());
+            userRepository.save(user);
+        }
+    }
+
+    public void setRoles(User user, String role) {
+        var newRole = role.equals(Role.ROLE_USER.name())
+                ? Role.ROLE_USER
+                : Role.ROLE_ADMIN;
+        user.getRoles().clear();
+        user.getRoles().add(newRole);
+        log.info("Права пользователя id: {}; email: {}; new role: {};", user.getId(), user.getEmail(), user.getRoles());
+        userRepository.save(user);
     }
 }

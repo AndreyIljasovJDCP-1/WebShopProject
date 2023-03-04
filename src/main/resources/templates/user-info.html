@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="/style.css">
+    <title>Web-shop</title>
+</head>
+<body>
+<h2 th:text="'Подробная информация о пользователе: ' + ${user.name}"></h2>
+
+<span th:text="'Номер телефона: ' + ${user.phoneNumber}"></span><br>
+<span th:text="'Email: ' + ${user.email}"></span><br>
+
+<h3 th:text="'Товары пользователя: ' + ${user.name}"></h3>
+
+<div th:if="!${#lists.isEmpty(user.products)}">
+    <table>
+        <thead>
+        <tr>
+            <td>№ п/п</td>
+            <td>Название</td>
+            <td>Описание</td>
+            <td>Цена</td>
+            <td>Мини-фото</td>
+            <td>Подробнее</td>
+        </tr>
+        </thead>
+        <tbody th:each="el,i : ${user.products}" class="table-body">
+        <tr>
+            <td th:text="${i.count}"></td>
+            <td th:text="${el.title}" id="td-title"></td>
+            <td th:text="${el.description}"></td>
+            <td th:text="${el.price}"></td>
+            <td>
+                <img th:src="@{/images/{id}(id=${el.previewImageId})}" height="30 px">
+            </td>
+            <td>
+                <a th:href="@{/product/{id}(id=${el.id})}">Подробнее</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<div th:if="${#lists.isEmpty(user.products)}">
+    <span>Товаров нет</span>
+</div>
+<br>
+<a href="/">Home</a>
+</body>
+</html>

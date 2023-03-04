@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="/style.css">
+    <title>Web-shop</title>
+</head>
+<body>
+<h3> Назначить права пользователя: <span th:text="${user.name}"></span></h3>
+
+<form th:action="@{/admin/user/edit/{id}(id=${user.id})}" method="post">
+    <span>
+        <input title="choose ROLE" type="radio" name="role" value="ROLE_USER" th:checked="${user.roles[0].name()}=='ROLE_USER'">ROLE_USER
+        <input title="choose ROLE" type="radio" name="role" value="ROLE_ADMIN" th:checked="${user.roles[0].name()}=='ROLE_ADMIN'">ROLE_ADMIN
+    </span>
+    <br>
+    <input type="submit" value="Сохранить">
+</form>
+<br>
+<a href="/">Home</a>
+</body>
+</html>tml>

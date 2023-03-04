@@ -9,10 +9,14 @@
 <h3 th:if="${user==null}"><a href="/login">Log in</a><span>    </span><a href="/registration">Sign up</a></h3>
 <div th:if="${user!=null}">
     <form th:action="@{/logout}" method="post">
-        <span th:text="${user.name}"></span>
+        <label th:text="${user.name}"></label>
         <input type="submit" value="Log out">
     </form>
+    <span th:if="${user.isAdmin()}">
+        <a th:href="@{/admin}" style="color:blueviolet; font-size:20px;">Панель Администратора</a>
+    </span>
 </div>
+<br>
 <hr>
 <h2>Ассортимент</h2>
 <div th:if="!${#lists.isEmpty(products)}">
