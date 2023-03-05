@@ -28,7 +28,7 @@
         <tbody th:each="el,i : ${user.products}" class="table-body">
         <tr>
             <td th:text="${i.count}"></td>
-            <td th:text="${el.title}" id="td-title"></td>
+            <td th:text="${el.title}"></td>
             <td th:text="${el.description}"></td>
             <td th:text="${el.price}"></td>
             <td>

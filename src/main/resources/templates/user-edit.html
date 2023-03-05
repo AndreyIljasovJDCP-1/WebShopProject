@@ -7,16 +7,25 @@
 </head>
 <body>
 <h3> Назначить права пользователя: <span th:text="${user.name}"></span></h3>
-
-<form th:action="@{/admin/user/edit/{id}(id=${user.id})}" method="post">
-    <span>
-        <input title="choose ROLE" type="radio" name="role" value="ROLE_USER" th:checked="${user.roles[0].name()}=='ROLE_USER'">ROLE_USER
-        <input title="choose ROLE" type="radio" name="role" value="ROLE_ADMIN" th:checked="${user.roles[0].name()}=='ROLE_ADMIN'">ROLE_ADMIN
+<form th:action="@{/admin/user/edit/{id}(id=${user.id})}" method="post" id="form_id">
+    <span th:each="role:${roles}">
+        <label th:text="${role.name()}"></label>
+        <input title="choose ROLE" type="checkbox" name="roles" th:value="${role.name()}"
+               th:checked="${user.roles.contains(role)}"><br>
     </span>
     <br>
     <input type="submit" value="Сохранить">
 </form>
+<!--<form th:action="@{/admin/user/edit/{id}(id=${user.id})}" method="post">-->
+<!--    <span>-->
+<!--        <input title="choose ROLE" type="radio" name="role" value="ROLE_USER" th:checked="${user.roles[0].name()}=='ROLE_USER'">ROLE_USER-->
+<!--        <input title="choose ROLE" type="radio" name="role" value="ROLE_ADMIN" th:checked="${user.roles[0].name()}=='ROLE_ADMIN'">ROLE_ADMIN-->
+<!--    </span>-->
+<!--    <br>-->
+<!--    <input type="submit" value="Сохранить">-->
+<!--</form>-->
 <br>
 <a href="/">Home</a>
+<script src="/main.js"></script>
 </body>
 </html>tml>

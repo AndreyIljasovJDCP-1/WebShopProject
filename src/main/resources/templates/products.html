@@ -13,7 +13,7 @@
         <input type="submit" value="Log out">
     </form>
     <span th:if="${user.isAdmin()}">
-        <a th:href="@{/admin}" style="color:blueviolet; font-size:20px;">Панель Администратора</a>
+        <a th:href="@{/admin/user}" style="color:blueviolet; font-size:20px;">Панель Администратора</a>
     </span>
 </div>
 <br>
@@ -34,7 +34,7 @@
         <tbody th:each="el,i : ${products}" class="table-body">
         <tr>
             <td th:text="${i.count}"></td>
-            <td th:text="${el.title}" id="td-title"></td>
+            <td th:text="${el.title}"></td>
             <td th:text="${el.description}"></td>
             <td th:text="${el.price}"></td>
             <td>

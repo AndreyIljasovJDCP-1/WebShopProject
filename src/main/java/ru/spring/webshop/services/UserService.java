@@ -45,13 +45,12 @@ public class UserService {
         }
     }
 
-    public void setRoles(User user, String role) {
-        var newRole = role.equals(Role.ROLE_USER.name())
-                ? Role.ROLE_USER
-                : Role.ROLE_ADMIN;
-        user.getRoles().clear();
-        user.getRoles().add(newRole);
-        log.info("Права пользователя id: {}; email: {}; new role: {};", user.getId(), user.getEmail(), user.getRoles());
-        userRepository.save(user);
+    public void setRoles(User user, String[] roles) {
+            user.getRoles().clear();
+            for (String role : roles) {
+                user.getRoles().add(Role.valueOf(role));
+            }
+            log.info("Права пользователя id: {}; email: {}; new role: {};", user.getId(), user.getEmail(), user.getRoles());
+            userRepository.save(user);
     }
 }
