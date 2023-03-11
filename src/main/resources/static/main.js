@@ -1,13 +1,11 @@
-document.getElementById('form_id').addEventListener('submit', check);
-function check(event) {
-    let form = document.getElementById('form_id');
-    let checkboxes = form.roles;
-    for (let i = 0; i < checkboxes.length; i++) {
-        if (checkboxes[i].checked) {
+document.getElementById('form_id').addEventListener('submit', (event) => {
+    let checkboxes = document.querySelectorAll('input[name="roles"]');
+    for (const checkbox of checkboxes) {
+        if (checkbox.checked) {
             return true;
         }
     }
     event.preventDefault();
-    alert("Заполните хотя бы одну роль!");
+    alert("Отметьте хотя бы одну роль!");
     return false;
-}
+});
