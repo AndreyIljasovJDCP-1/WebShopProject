@@ -32,7 +32,7 @@ public class ProductController {
         model.addAttribute("products", service.getProducts(title));
         var user = principal == null ? null : service.getUserByPrincipal(principal);
         model.addAttribute("user", user);
-        return "products-bs";
+        return "products";
     }
 
     @GetMapping("/product/{id}")
