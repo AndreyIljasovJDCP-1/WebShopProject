@@ -14,21 +14,21 @@ public class UserController {
     @Autowired
     UserService userService;
 
-    @GetMapping("/login")
+    @GetMapping("/login-bs-4")
     public String login() {
-        return "login";
+        return "login-bs-4";
     }
 
-    @GetMapping("/registration")
+    @GetMapping("/registration-bs-4")
     public String registration() {
-        return "registration";
+        return "registration-bs-4";
     }
 
-    @PostMapping("/registration")
+    @PostMapping("/registration-bs-4")
     public String createUser(User user, Model model) {
         if (!userService.createUser(user)) {
             model.addAttribute("errorCreateUser", user.getEmail());
-            return "registration";
+            return "registration-bs-4";
         }
         return "redirect:/";
     }
