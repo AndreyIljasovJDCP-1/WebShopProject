@@ -38,8 +38,7 @@ public class UserController {
     @GetMapping("/user/{user}")
     public String userInfo(@PathVariable User user, Model model, Principal principal) {
         model.addAttribute("user", user);
-        var authUser = principal == null ? null : userService.getUserByPrincipal(principal);
-        model.addAttribute("authUser", authUser);
+        model.addAttribute("authUser", userService.getUserByPrincipal(principal));
         return "user-info";
     }
 }

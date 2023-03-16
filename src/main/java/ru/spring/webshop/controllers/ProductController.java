@@ -30,16 +30,14 @@ public class ProductController {
             @RequestParam(name = "title", required = false) String title,
             Model model, Principal principal) {
         model.addAttribute("products", service.getProducts(title));
-        var authUser = principal == null ? null : userService.getUserByPrincipal(principal);
-        model.addAttribute("authUser", authUser);
+        model.addAttribute("authUser", userService.getUserByPrincipal(principal));
         return "products";
     }
 
     @GetMapping("/product/{id}")
     public String getProduct(@PathVariable Long id, Model model, Principal principal) {
         model.addAttribute("product", service.getProductById(id));
-        var authUser = principal == null ? null : userService.getUserByPrincipal(principal);
-        model.addAttribute("authUser", authUser);
+        model.addAttribute("authUser", userService.getUserByPrincipal(principal));
         return "product-info";
     }
 

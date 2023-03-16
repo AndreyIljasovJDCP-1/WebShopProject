@@ -55,6 +55,9 @@ public class UserService {
             userRepository.save(user);
     }
     public User getUserByPrincipal(Principal principal) {
-        return userRepository.findByEmail(principal.getName()).orElse(null);
+        return principal == null
+                ? null
+                : userRepository.findByEmail(principal.getName())
+                .orElseThrow();
     }
 }

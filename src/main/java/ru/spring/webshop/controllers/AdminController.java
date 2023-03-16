@@ -22,8 +22,7 @@ public class AdminController {
     @GetMapping()
     public String admin(Model model, Principal principal) {
         model.addAttribute("users", userService.all());
-        var authUser = principal == null ? null : userService.getUserByPrincipal(principal);
-        model.addAttribute("authUser", authUser);
+        model.addAttribute("authUser", userService.getUserByPrincipal(principal));
         return "admin";
     }
 
@@ -31,8 +30,7 @@ public class AdminController {
     public String editUser(@PathVariable User user, Model model, Principal principal) {
         model.addAttribute("user", user);
         model.addAttribute("roles", Role.values());
-        var authUser = principal == null ? null : userService.getUserByPrincipal(principal);
-        model.addAttribute("authUser", authUser);
+        model.addAttribute("authUser", userService.getUserByPrincipal(principal));
         return "user-edit";
     }
 
