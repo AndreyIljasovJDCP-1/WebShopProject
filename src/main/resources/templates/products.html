@@ -1,73 +1,118 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <link rel="stylesheet" href="/style.css">
-    <title>Web-shop</title>
-</head>
-<body id="table">
-<h3 th:if="${user==null}"><a href="/login">Log in</a><span>    </span><a href="/registration">Sign up</a></h3>
-<div th:if="${user!=null}">
-    <form th:action="@{/logout}" method="post">
-        <label th:text="${user.name}"></label>
-        <input type="submit" value="Log out">
-    </form>
-    <span th:if="${user.isAdmin()}">
-        <a th:href="@{/admin/user}" style="color:blueviolet; font-size:20px;">Панель Администратора</a>
-    </span>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.thymeleaf.org ">
+<head th:insert="fragment/head-bs-4 :: head-bs-4"></head>
+<body id="table" style="background: black;">
+<header th:insert="fragment/navbar :: header-bs-4"></header>
+<div class="container col-6 mt-3">
+    <h2 class="text-center text-info">Слайд-шоу</h2>
+    <div class="d-flex justify-content-center">
+        <div id="carouselExampleIndicators" class="carousel slide carousel-fade" data-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="/images/4" height="250 px" alt="...">
+                </div>
+                <div class="carousel-item">
+                    <img src="/images/5" height="250 px" alt="...">
+                </div>
+                <div class="carousel-item">
+                    <img src="/images/6" height="250 px" alt="...">
+                </div>
+            </div>
+            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Предыдущий</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Следующий</span>
+            </a>
+        </div>
+    </div>
 </div>
-<br>
 <hr>
-<h2>Ассортимент</h2>
-<div th:if="!${#lists.isEmpty(products)}">
-    <table>
-        <thead>
-        <tr>
-            <td>№ п/п</td>
-            <td>Название</td>
-            <td>Описание</td>
-            <td>Цена</td>
-            <td>Мини-фото</td>
-            <td>Подробнее</td>
-        </tr>
-        </thead>
-        <tbody th:each="el,i : ${products}" class="table-body">
-        <tr>
-            <td th:text="${i.count}"></td>
-            <td th:text="${el.title}"></td>
-            <td th:text="${el.description}"></td>
-            <td th:text="${el.price}"></td>
-            <td>
-                <img th:src="@{/images/{id}(id=${el.previewImageId})}" height="30 px">
-            </td>
-            <td>
-                <a th:href="@{/product/{id}(id=${el.id})}">Подробнее</a>
-            </td>
-        </tr>
-        </tbody>
-    </table>
-    <form th:action="@{/}" method="get">
-        <span>Название товара: <input type="text" name="title"></span>
-        <input type="submit" value="поиск">
-    </form>
+<h2 class="container text-center text-success">Ассортимент</h2>
+<div class="container col-8">
+    <div th:if="!${#lists.isEmpty(products)}" class="d-flex justify-content-center">
+        <table class="table table-bordered table-hover table-responsive-md table-dark text-white-50">
+            <thead>
+            <tr class="bg-primary text-white">
+                <td>№ п/п</td>
+                <td>Название</td>
+                <td>Описание</td>
+                <td>Цена</td>
+                <td>Мини-фото</td>
+                <td>Подробнее</td>
+            </tr>
+            </thead>
+            <tbody th:each="el,i : ${products}" class="table-body">
+            <tr class="text-white-50">
+                <td th:text="${i.count}"></td>
+                <td th:text="${el.title}"></td>
+                <td th:text="${el.description}"></td>
+                <td th:text="${el.price}"></td>
+                <td>
+                    <img th:src="@{/images/{id}(id=${el.previewImageId})}" height="30 px">
+                </td>
+                <td>
+                    <a th:href="@{/product/{id}(id=${el.id})}">Подробнее</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 </div>
 
 <div th:if="${#lists.isEmpty(products)}">
     <span>Товаров нет</span>
 </div>
 <br>
-<hr>
-<br>
-<div th:if="${user ne null}">
-<h3>Добавление товара</h3>
-<form th:action="@{/product}" method="post" enctype="multipart/form-data">
-    <span>Название товара: <input type="text" name="title"></span><br>
-    <span>Описание товара: <input type="text" name="description"></span><br>
-    <span>Цена товара: <input type="number" name="price"></span><br>
-    <span>Город: <input type="text" name="city"></span><br>
-    <span>Загрузите фото: <input type="file" name="files" multiple required></span><br>
-    <input type="submit" value="добавить">
-</form>
+<hr class="bg-warning">
+<div class="d-flex justify-content-center">
+    <button th:if="${authUser ne null}" class="btn btn-info" data-toggle="collapse" data-target="#add">Добавить товар
+    </button>
 </div>
+<div class="collapse" id="add">
+    <div class="container col-4 p-3">
+        <h4 class="text-center text-success">Заполните форму:</h4>
+        <form th:action="@{/product}" method="post" enctype="multipart/form-data">
+            <div class="form-row">
+                <div class="form-group col-8">
+                <span class="text-info">Название товара: <input class="form-control bg-dark text-white-50" type="text"
+                                                                name="title"
+                                                                required></span>
+                </div>
+                <div class="form-group col-4">
+               <span class="text-info">Цена товара: <input class="form-control bg-dark text-white-50" type="number"
+                                                           name="price" pattern="<^[ 0-9]+$>" required>
+            </span>
+                </div>
+            </div>
+            <div class="form-group">
+            <span class="text-info">Описание товара:
+                <textarea class="form-control bg-dark text-white-50" name="description" placeholder="Описание товара">
+                </textarea>
+            </span>
+            </div>
+            <div class="form-group">
+            <span class="text-info">Город: <input class="form-control bg-dark text-white-50" type="text" name="city"
+                                                  placeholder="Введите город"
+                                                  required>
+            </span>
+            </div>
+            <div class="form-group">
+            <span class="text-info">Загрузите фото:
+                <input class="form-control-file text-success" type="file" name="files" multiple required>
+            </span>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-success">Добавить товар</button>
+            </div>
+        </form>
+    </div>
+</div>
+<!-- Вариант 1: пакет jQuery и Bootstrap (включает Popper) -->
+<span th:insert="fragment/scripts :: scripts-bs-4-1"></span>
+<span th:insert="fragment/scripts :: scripts-bs-4-2"></span>
 </body>
 </html>

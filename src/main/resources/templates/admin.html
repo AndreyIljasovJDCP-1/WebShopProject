@@ -1,17 +1,13 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <link rel="stylesheet" href="/style.css">
-    <title>Web-shop</title>
-</head>
-<body>
-<h2> Панель администратора</h2>
-
-<div th:if="!${#lists.isEmpty(users)}">
-    <table>
+<head th:insert="fragment/head-bs-4 :: head-bs-4"></head>
+<body style="background: black;">
+<header th:insert="fragment/navbar :: header-bs-4"></header>
+<div th:if="!${#lists.isEmpty(users)}" class="container col-8 justify-content-center mt-5">
+    <h2 class="text-center text-info"> Панель администратора</h2>
+    <table  class="table table-bordered table-hover table-responsive-md table-dark text-white-50">
         <thead>
-        <tr>
+        <tr style="background: blueviolet;">
             <td>№ п/п</td>
             <td>Имя пользователя</td>
             <td>Email</td>
@@ -35,6 +31,7 @@
         </tbody>
     </table>
 </div>
-<a href="/">Home</a>
+<span th:insert="fragment/scripts :: scripts-bs-4-1"></span>
+<span th:insert="fragment/scripts :: scripts-bs-4-2"></span>
 </body>
 </html>

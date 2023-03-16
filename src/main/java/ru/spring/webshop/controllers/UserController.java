@@ -9,33 +9,37 @@ import org.springframework.web.bind.annotation.PostMapping;
 import ru.spring.webshop.models.User;
 import ru.spring.webshop.services.UserService;
 
+import java.security.Principal;
+
 @Controller
 public class UserController {
     @Autowired
     UserService userService;
 
-    @GetMapping("/login-bs-4")
+    @GetMapping("/login")
     public String login() {
-        return "login-bs-4";
+        return "login";
     }
 
-    @GetMapping("/registration-bs-4")
+    @GetMapping("/registration")
     public String registration() {
-        return "registration-bs-4";
+        return "registration";
     }
 
-    @PostMapping("/registration-bs-4")
+    @PostMapping("/registration")
     public String createUser(User user, Model model) {
         if (!userService.createUser(user)) {
             model.addAttribute("errorCreateUser", user.getEmail());
-            return "registration-bs-4";
+            return "registration";
         }
         return "redirect:/";
     }
 
     @GetMapping("/user/{user}")
-    public String userInfo(@PathVariable User user, Model model) {
+    public String userInfo(@PathVariable User user, Model model, Principal principal) {
         model.addAttribute("user", user);
+        var authUser = principal == null ? null : userService.getUserByPrincipal(principal);
+        model.addAttribute("authUser", authUser);
         return "user-info";
     }
 }

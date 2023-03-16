@@ -8,6 +8,7 @@ import ru.spring.webshop.models.Role;
 import ru.spring.webshop.models.User;
 import ru.spring.webshop.repositories.UserRepository;
 
+import java.security.Principal;
 import java.util.List;
 
 @Slf4j
@@ -52,5 +53,8 @@ public class UserService {
             }
             log.info("Права пользователя id: {}; email: {}; new role: {};", user.getId(), user.getEmail(), user.getRoles());
             userRepository.save(user);
+    }
+    public User getUserByPrincipal(Principal principal) {
+        return userRepository.findByEmail(principal.getName()).orElse(null);
     }
 }

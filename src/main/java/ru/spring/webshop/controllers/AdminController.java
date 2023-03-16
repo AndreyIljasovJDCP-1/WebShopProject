@@ -9,6 +9,8 @@ import ru.spring.webshop.models.Role;
 import ru.spring.webshop.models.User;
 import ru.spring.webshop.services.UserService;
 
+import java.security.Principal;
+
 @Controller
 @RequestMapping("/admin/user")
 @PreAuthorize("hasAuthority('ROLE_ADMIN')")
@@ -18,15 +20,19 @@ public class AdminController {
     UserService userService;
 
     @GetMapping()
-    public String admin(Model model) {
+    public String admin(Model model, Principal principal) {
         model.addAttribute("users", userService.all());
+        var authUser = principal == null ? null : userService.getUserByPrincipal(principal);
+        model.addAttribute("authUser", authUser);
         return "admin";
     }
 
     @GetMapping("/edit/{user}")
-    public String editUser(@PathVariable User user, Model model) {
+    public String editUser(@PathVariable User user, Model model, Principal principal) {
         model.addAttribute("user", user);
         model.addAttribute("roles", Role.values());
+        var authUser = principal == null ? null : userService.getUserByPrincipal(principal);
+        model.addAttribute("authUser", authUser);
         return "user-edit";
     }
 

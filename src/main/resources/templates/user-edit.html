@@ -1,31 +1,24 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <link rel="stylesheet" href="/style.css">
-    <title>Web-shop</title>
-</head>
-<body>
-<h3> Назначить права пользователя: <span th:text="${user.name}"></span></h3>
-<form th:action="@{/admin/user/edit/{id}(id=${user.id})}" method="post" id="form_id">
-    <span th:each="role:${roles}">
-        <label th:text="${role.name()}"></label>
-        <input title="choose ROLE" type="checkbox" name="roles" th:value="${role.name()}"
-               th:checked="${user.roles.contains(role)}"><br>
-    </span>
-    <br>
-    <input type="submit" value="Сохранить">
-</form>
-<!--<form th:action="@{/admin/user/edit/{id}(id=${user.id})}" method="post">-->
-<!--    <span>-->
-<!--        <input title="choose ROLE" type="radio" name="role" value="ROLE_USER" th:checked="${user.roles[0].name()}=='ROLE_USER'">ROLE_USER-->
-<!--        <input title="choose ROLE" type="radio" name="role" value="ROLE_ADMIN" th:checked="${user.roles[0].name()}=='ROLE_ADMIN'">ROLE_ADMIN-->
-<!--    </span>-->
-<!--    <br>-->
-<!--    <input type="submit" value="Сохранить">-->
-<!--</form>-->
-<br>
-<a href="/">Home</a>
+<head th:insert="fragment/head-bs-4 :: head-bs-4"></head>
+<body style="background: black;">
+<header th:insert="fragment/navbar :: header-bs-4"></header>
+<div class="container">
+    <h4 class="text-info my-2"> Назначить права пользователя: <span th:text="${user.name}" class="text-warning"></span></h4>
+<div class="d-flex justify-content-start">
+    <form th:action="@{/admin/user/edit/{id}(id=${user.id})}" method="post" id="form_id">
+        <div class="form-check" th:each="role:${roles}">
+            <input class="form-check-input" title="choose ROLE" type="checkbox" name="roles"
+                   th:value="${role.name()}"
+                   th:checked="${user.roles.contains(role)}">
+            <label th:text="${role.name()}" class="text-primary font-weight-bold"></label>
+        </div>
+        <button type="submit" class="btn btn-sm btn-success">Сохранить</button>
+    </form>
+</div>
+</div>
 <script src="/main.js"></script>
+<span th:insert="fragment/scripts :: scripts-bs-4-1"></span>
+<span th:insert="fragment/scripts :: scripts-bs-4-2"></span>
 </body>
-</html>tml>
+</html>
