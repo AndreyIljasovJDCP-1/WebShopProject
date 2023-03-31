@@ -2,50 +2,64 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <link rel="stylesheet" href="/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+          integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
     <title>Web-shop</title>
 </head>
-<body>
-<h2 th:text="'Подробная информация о пользователе: ' + ${user.name}"></h2>
+<body style="background: black;">
+<header th:insert="fragment/navbar :: header-bs-4"></header>
+<main class="container pt-5">
+    <div class="container pt-3 col-8">
+        <h4 class="text-center text-success">Подробная информация о пользователе: <span th:text="${user.name}"
+                                                                                        class="text-warning"></span>
+        </h4>
+        <span class="text-warning">Номер телефона: <b th:text="${user.phoneNumber}"
+                                                      class="text-success"></b>
+        </span><br>
+        <span class="text-warning">Email: <b th:text="${user.email}" class="text-success"></b>
+        </span><br>
+        <h4 class="text-center text-success">Товары пользователя: <span th:text="${user.name}"
+                                                                        class="text-warning"></span>
+        </h4>
 
-<span th:text="'Номер телефона: ' + ${user.phoneNumber}"></span><br>
-<span th:text="'Email: ' + ${user.email}"></span><br>
+        <div th:if="!${#lists.isEmpty(user.products)}" class="d-flex justify-content-center">
+            <table class="table table-bordered table-hover table-responsive-md table-dark text-white-50">
+                <thead>
+                <tr class="bg-primary text-white">
+                    <td>№ п/п</td>
+                    <td>Название</td>
+                    <td>Описание</td>
+                    <td>Цена</td>
+                    <td>Мини-фото</td>
+                    <td>Подробнее</td>
+                </tr>
+                </thead>
+                <tbody th:each="el,i : ${user.products}">
+                <tr class="text-white-50">
+                    <td th:text="${i.count}"></td>
+                    <td th:text="${el.title}"></td>
+                    <td th:text="${el.description}"></td>
+                    <td th:text="${el.price}"></td>
+                    <td>
+                        <img th:src="@{/images/{id}(id=${el.previewImageId})}" height="30 px">
+                    </td>
+                    <td>
+                        <a th:href="@{/product/{id}(id=${el.id})}">Подробнее</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 
-<h3 th:text="'Товары пользователя: ' + ${user.name}"></h3>
-
-<div th:if="!${#lists.isEmpty(user.products)}">
-    <table>
-        <thead>
-        <tr>
-            <td>№ п/п</td>
-            <td>Название</td>
-            <td>Описание</td>
-            <td>Цена</td>
-            <td>Мини-фото</td>
-            <td>Подробнее</td>
-        </tr>
-        </thead>
-        <tbody th:each="el,i : ${user.products}" class="table-body">
-        <tr>
-            <td th:text="${i.count}"></td>
-            <td th:text="${el.title}"></td>
-            <td th:text="${el.description}"></td>
-            <td th:text="${el.price}"></td>
-            <td>
-                <img th:src="@{/images/{id}(id=${el.previewImageId})}" height="30 px">
-            </td>
-            <td>
-                <a th:href="@{/product/{id}(id=${el.id})}">Подробнее</a>
-            </td>
-        </tr>
-        </tbody>
-    </table>
-</div>
-
-<div th:if="${#lists.isEmpty(user.products)}">
-    <span>Товаров нет</span>
-</div>
-<br>
-<a href="/">Home</a>
+    <div th:if="${#lists.isEmpty(user.products)}" class="d-flex justify-content-start">
+        <span class="text-danger">Товаров нет</span>
+    </div>
+</main>
+<footer th:insert="fragment/footer :: footer-bs-4"></footer>
+<span th:insert="fragment/scripts :: scripts-bs-4-1"></span>
+<span th:insert="fragment/scripts :: scripts-bs-4-2"></span>
 </body>
 </html>

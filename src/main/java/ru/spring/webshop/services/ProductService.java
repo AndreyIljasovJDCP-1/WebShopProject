@@ -33,7 +33,7 @@ public class ProductService {
 
     public void saveProduct(Principal principal, Product product, MultipartFile[] files) throws IOException {
         //добавим пользователя к товару
-        product.setUser(getUserByPrincipal(principal));
+        product.setUser(userRepository.findByEmail(principal.getName()).orElse(null));
 
         for (int i = 0; i < files.length; i++) {
             var image = getImageEntity(files[i]);
@@ -46,15 +46,10 @@ public class ProductService {
         var productDB = repository.save(product);
         productDB.setPreviewImageId(productDB.getImages().get(0).getId());
         log.info("Saving new product. Title: {}; PreviewImageId: {}; User(name): {}",
-                product.getTitle(), product.getPreviewImageId(),product.getUser().getName());
+                product.getTitle(), product.getPreviewImageId(), product.getUser().getName());
         repository.save(productDB);
 
     }
-
-    public User getUserByPrincipal(Principal principal) {
-        return userRepository.findByEmail(principal.getName()).orElse(null);
-    }
-
     public void deleteProduct(Long id) {
         repository.deleteById(id);
     }

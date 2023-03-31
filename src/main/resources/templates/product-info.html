@@ -2,47 +2,62 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <link rel="stylesheet" href="/style.css">
-    <title>Подробно о товаре</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+          integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+    <title>Web-shop</title>
 </head>
-<body id="single">
-<h2>Информация о товаре</h2>
-<table>
-    <thead>
-    <tr>
-        <td>Название</td>
-        <td>Описание</td>
-        <td>Цена</td>
-        <td>Город</td>
-        <td>Продавец</td>
-    </tr>
-    </thead>
-    <tbody class="table-body">
-    <tr>
-        <td th:text="${product.title}"></td>
-        <td th:text="${product.description}"></td>
-        <td th:text="${product.price}"></td>
-        <td th:text="${product.city}"></td>
-        <td>
-            <a th:href="@{'/user/'+${product.user.id}}">
-                <span th:text="${product.user.name}"></span>
-            </a>
-        </td>
-    </tr>
-    </tbody>
-</table>
-<br>
-<h3>Фото товара</h3>
-<div th:each="image: ${product.images}">
-    <img th:src="'/images/'+${image.id}" height="100 px"><br><br>
+<body style="background: black;">
+<header th:insert="fragment/navbar :: header-bs-4"></header>
+<main class="container pt-5">
+<div class="container py-3 col-8">
+    <h3 class="text-center text-success">Информация о товаре</h3>
+    <div class="d-flex justify-content-center">
+        <table class="table table-bordered table-hover table-responsive-md table-dark text-white-50">
+            <thead>
+            <tr class="bg-primary text-white">
+                <td>Название</td>
+                <td>Описание</td>
+                <td>Цена</td>
+                <td>Город</td>
+                <td>Продавец</td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="text-white-50">
+                <td th:text="${product.title}"></td>
+                <td th:text="${product.description}"></td>
+                <td th:text="${product.price}"></td>
+                <td th:text="${product.city}"></td>
+                <td>
+                    <a th:href="@{'/user/'+${product.user.id}}">
+                        <span th:text="${product.user.name}"></span>
+                    </a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 </div>
-<br>
-<hr>
-<br>
-<form th:action="@{'/product/delete/'+${product.id}}" method="post">
-    <label>Удалить товар? </label><input type="submit" value="ОК">
-</form>
-<br>
-<a href="/">Home</a>
+<hr class="bg-warning">
+<div class="container col-8 mt-3">
+    <h3 class="text-center text-primary">Фото товара</h3>
+    <div th:each="image: ${product.images}" class="d-flex justify-content-center p-2">
+        <img th:src="'/images/'+${image.id}" height="100 px" class="border border-success"><br><br>
+    </div>
+<hr class="bg-danger">
+<div class="d-flex justify-content-center mt-2">
+    <form th:action="@{'/product/delete/'+${product.id}}" class="form-inline" method="post">
+        <div class="form-group">
+            <button type="submit" class="btn btn-danger">Удалить товар</button>
+        </div>
+    </form>
+</div>
+</div>
+</main>
+<footer th:insert="fragment/footer :: footer-bs-4"></footer>
+<span th:insert="fragment/scripts :: scripts-bs-4-1"></span>
+<span th:insert="fragment/scripts :: scripts-bs-4-2"></span>
 </body>
 </html>

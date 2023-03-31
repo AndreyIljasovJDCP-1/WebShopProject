@@ -2,22 +2,33 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <link rel="stylesheet" href="/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+          integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
     <title>Web-shop</title>
 </head>
-<body>
-<h3> Назначить права пользователя: <span th:text="${user.name}"></span></h3>
-<form th:action="@{/admin/user/edit/{id}(id=${user.id})}" method="post" id="form_id">
-    <span th:each="role:${roles}">
-        <label th:text="${role.name()}"></label>
-        <input title="choose ROLE" type="checkbox" name="roles" th:value="${role.name()}"
-               th:checked="${user.roles.contains(role)}"><br>
-    </span>
-    <br>
-    <input type="submit" value="Сохранить">
-</form>
-<br>
-<a href="/">Home</a>
+<body style="background: black;">
+<header th:insert="fragment/navbar :: header-bs-4"></header>
+<main class="container pt-5">
+<div class="container pt-3">
+    <h4 class="text-info "> Назначить права пользователя: <span th:text="${user.name}" class="text-warning"></span></h4>
+<div class="d-flex justify-content-start">
+    <form th:action="@{/admin/user/edit/{id}(id=${user.id})}" method="post" id="form_id">
+        <div class="form-check" th:each="role:${roles}">
+            <input class="form-check-input" title="choose ROLE" type="checkbox" name="roles"
+                   th:value="${role.name()}"
+                   th:checked="${user.roles.contains(role)}">
+            <label th:text="${role.name()}" class="text-primary font-weight-bold"></label>
+        </div>
+        <button type="submit" class="btn btn-sm btn-success">Сохранить</button>
+    </form>
+</div>
+</div>
+</main>
+<footer th:insert="fragment/footer :: footer-bs-4"></footer>
 <script src="/main.js"></script>
+<span th:insert="fragment/scripts :: scripts-bs-4-1"></span>
+<span th:insert="fragment/scripts :: scripts-bs-4-2"></span>
 </body>
-</html>tml>
+</html>
