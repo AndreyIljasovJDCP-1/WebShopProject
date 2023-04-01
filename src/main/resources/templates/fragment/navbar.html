@@ -12,19 +12,18 @@
                     <a class="nav-link" href="/">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">About</a>
+                    <a class="nav-link" href="/about">About</a>
                 </li>
                 <!-- Dropdown -->
-                <li class="nav-item dropdown">
+                <li class="nav-item dropdown" th:if="${authUser!=null}">
                     <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
                         Служебные
                     </a>
-                    <div class="dropdown-menu" role="navigation">
-                        <span th:if="${authUser!=null} and ${authUser.isAdmin()}">
+                    <div  class="dropdown-menu" role="navigation">
+                        <span th:if="${authUser.isAdmin()}">
                             <a th:href="@{/admin/user}" class="dropdown-item" style="color:blueviolet">Панель Администратора</a>
                         </span>
-                        <a class="dropdown-item" href="#">Link 2</a>
-                        <a class="dropdown-item" href="#">Link 3</a>
+                        <a class="dropdown-item" href="#" th:href="@{/user/{id}(id=${authUser.id})}" style="color:darkcyan;">USER INFO</a>
                     </div>
                 </li>
             </ul>

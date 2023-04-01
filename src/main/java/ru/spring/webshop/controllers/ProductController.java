@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import ru.spring.webshop.models.Product;
+import ru.spring.webshop.repositories.ImagesRepository;
 import ru.spring.webshop.services.ProductService;
 import ru.spring.webshop.services.UserService;
 
@@ -23,6 +24,8 @@ public class ProductController {
     ProductService service;
     @Autowired
     UserService userService;
+    @Autowired
+    ImagesRepository imagesRepository;
 
 
     @GetMapping("/")
@@ -30,6 +33,7 @@ public class ProductController {
             @RequestParam(name = "title", required = false) String title,
             Model model, Principal principal) {
         model.addAttribute("products", service.getProducts(title));
+        model.addAttribute("images", imagesRepository.findAll());
         model.addAttribute("authUser", userService.getUserByPrincipal(principal));
         return "products";
     }

@@ -19,38 +19,82 @@ public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private String name;
     @Column(name = "email", unique = true)
     private String email;
+    @Column(length = 1000)
+    private String password;
     private String phoneNumber;
-    private String name;
     private boolean active;
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "image_id")
     private Image avatar;
-    @Column(length = 1000)
-    private String password;
-    @Enumerated(EnumType.STRING)
-    @CollectionTable(name = "user_role",
-            joinColumns = @JoinColumn(name = "user_id"))
-    @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
-    private Set<Role> roles = new HashSet<>();
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "user")
+
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "users_roles",
+            joinColumns = @JoinColumn(
+                    name = "user_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(
+                    name = "role_id", referencedColumnName = "id"))
+    private Collection<Role> roles;
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "user")
     private List<Product> products = new ArrayList<>();
     private LocalDateTime createdDateTime;
 
+    public User(String name, String email, String password, String phoneNumber, Collection<Role> roles) {
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.phoneNumber = phoneNumber;
+        this.roles = roles;
+    }
     @PrePersist
     private void init() {
         createdDateTime = LocalDateTime.now();
     }
 
-    public boolean isAdmin(){
-        return roles.contains(Role.ROLE_ADMIN);
+    public boolean isAdmin() {
+        return roles.stream().anyMatch(role -> role.getName().equals("ROLE_ADMIN"));
     }
 
     //security
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return roles;
+
+        var listAuthorities = getRoleAuthorities();
+        listAuthorities.addAll(getPrivilegeAuthorities());
+        return listAuthorities;
+
+    }
+
+    private Collection<GrantedAuthority> getRoleAuthorities() {
+        return new ArrayList<>(roles.stream()
+                .map(Role::getRoleAuthority)
+                .toList());
+    }
+
+    private Collection<GrantedAuthority> getPrivilegeAuthorities() {
+        return roles.stream()
+                .flatMap(role -> role.getPrivileges()
+                        .stream()
+                        .map(Privilege::getAuthority)
+                )
+                .toList();
+    }
+    public List<String> getRoleList() {
+        return roles.stream()
+                .map(Role::getName)
+                .distinct()
+                .toList();
+    }
+    public List<String> getPrivilegeList(String roleName) {
+        return roles.stream()
+                .distinct()
+                .filter(role -> role.getName().equals(roleName))
+                .flatMap(role -> role.getPrivileges().stream().map(Privilege::getName))
+                .toList();
     }
 
     @Override

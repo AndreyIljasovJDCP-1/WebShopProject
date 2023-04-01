@@ -4,11 +4,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import ru.spring.webshop.models.Role;
 import ru.spring.webshop.models.User;
+import ru.spring.webshop.repositories.RoleRepository;
 import ru.spring.webshop.repositories.UserRepository;
 
 import java.security.Principal;
+import java.util.Arrays;
 import java.util.List;
 
 @Slf4j
@@ -17,9 +18,11 @@ public class UserService {
     @Autowired
     UserRepository userRepository;
     @Autowired
+    RoleRepository roleRepository;
+    @Autowired
     PasswordEncoder passwordEncoder;
 
-    public boolean createUser(User user) {
+    public boolean createUser(User user, String role) {
 
         var email = user.getEmail();
         if (userRepository.findByEmail(email).isPresent()) {
@@ -27,9 +30,11 @@ public class UserService {
         }
         user.setActive(true);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.getRoles().add(Role.ROLE_USER);
-        log.info("Saving new User with email: {}; role: {}", email, Role.ROLE_USER);
+        user.setRoles(Arrays.asList(
+                roleRepository.findByName(role)));
         userRepository.save(user);
+        log.info("Saving new User with email: {}; role: {}", email, role);
+
         return true;
     }
 
@@ -47,12 +52,12 @@ public class UserService {
     }
 
     public void setRoles(User user, String[] roles) {
-            user.getRoles().clear();
-            for (String role : roles) {
-                user.getRoles().add(Role.valueOf(role));
-            }
-            log.info("Права пользователя id: {}; email: {}; new role: {};", user.getId(), user.getEmail(), user.getRoles());
-            userRepository.save(user);
+        user.getRoles().clear();
+        for (String role : roles) {
+            user.getRoles().add(roleRepository.findByName(role));
+        }
+        log.info("Права пользователя id: {}; email: {}; new roles: {};", user.getId(), user.getEmail(), user.getRoleList());
+        userRepository.save(user);
     }
     public User getUserByPrincipal(Principal principal) {
         return principal == null

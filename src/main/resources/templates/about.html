@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+          integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+    <title>Web-shop</title>
+</head>
+<body style="background: black;">
+<header th:insert="fragment/navbar :: header-bs-4"></header>
+<main class="container pt-5">
+    <h5 class="text-warning text-center p-3">Проект <span class="text-success">Web-Shop</span> на основе
+        данного видео-курса</h5>
+    <div class="container p-3 col-6">
+        <div class="embed-responsive embed-responsive-16by9">
+            <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/7qvwtlnxVH8"
+                    allowfullscreen></iframe>
+        </div>
+    </div>
+    <div class="container col-8">
+        <div class="row justify-content-center">
+        <p class="text-info text-justify">
+            В этом проекте реализована имитация интернет-магазина, на основе Spring Boot с возможностью хранения, добавления,
+            удаления товаров, а также авторизации и регистрации пользователей с иерархией ролей и привилегий, с возможностью их редактирования
+            пользователем с правами Администратора. При разработке блока <span class="text-success">Spring Security</span>
+            использовались материалы этой <a href="https://www.baeldung.com/role-and-privilege-for-spring-security-registration" target="_blank">
+                статьи.
+            </a>
+        </p>
+        </div>
+    </div>
+</main>
+<footer th:insert="fragment/footer :: footer-bs-4"></footer>
+<span th:insert="fragment/scripts :: scripts-bs-4-1"></span>
+<span th:insert="fragment/scripts :: scripts-bs-4-2"></span>
+</body>
+</html>

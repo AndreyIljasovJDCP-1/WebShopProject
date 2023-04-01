@@ -15,12 +15,12 @@
         <h4 class="text-center text-success">Подробная информация о пользователе: <span th:text="${user.name}"
                                                                                         class="text-warning"></span>
         </h4>
-        <span class="text-warning">Номер телефона: <b th:text="${user.phoneNumber}"
+        <span class="text-info">Номер телефона: <b th:text="${user.phoneNumber}"
                                                       class="text-success"></b>
         </span><br>
-        <span class="text-warning">Email: <b th:text="${user.email}" class="text-success"></b>
+        <span class="text-info">Email: <b th:text="${user.email}" class="text-success"></b>
         </span><br>
-        <h4 class="text-center text-success">Товары пользователя: <span th:text="${user.name}"
+        <h4 class="text-center text-primary">Товары пользователя: <span th:text="${user.name}"
                                                                         class="text-warning"></span>
         </h4>
 
@@ -52,10 +52,32 @@
                 </tbody>
             </table>
         </div>
-    </div>
+        <div th:if="${#lists.isEmpty(user.products)}" class="d-flex justify-content-center p-2">
+            <h5 class="text-danger">Товаров нет</h5>
+        </div>
+        <h4 class="text-center text-primary">Права пользователя: <span th:text="${user.name}"
+                                                                       class="text-warning"></span>
+        </h4>
 
-    <div th:if="${#lists.isEmpty(user.products)}" class="d-flex justify-content-start">
-        <span class="text-danger">Товаров нет</span>
+        <div class="d-flex justify-content-center">
+            <table class="table table-bordered table-hover table-responsive-md table-dark text-white-50">
+                <thead>
+                <tr class="bg-primary text-white">
+                    <td>№ п/п</td>
+                    <td>Роли</td>
+                    <td>Привилегии</td>
+                </tr>
+                </thead>
+                <tbody th:each="role,i : ${user.getRoleList()}">
+                <tr class="text-white-50 ">
+                    <td th:text="${i.count}"></td>
+                    <td th:text="${role}"></td>
+                    <td th:text="${user.getPrivilegeList(role)}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
     </div>
 </main>
 <footer th:insert="fragment/footer :: footer-bs-4"></footer>

@@ -40,20 +40,22 @@
         </table>
     </div>
 </div>
-<hr class="bg-warning">
 <div class="container col-8 mt-3">
     <h3 class="text-center text-primary">Фото товара</h3>
-    <div th:each="image: ${product.images}" class="d-flex justify-content-center p-2">
-        <img th:src="'/images/'+${image.id}" height="100 px" class="border border-success"><br><br>
-    </div>
-<hr class="bg-danger">
-<div class="d-flex justify-content-center mt-2">
-    <form th:action="@{'/product/delete/'+${product.id}}" class="form-inline" method="post">
-        <div class="form-group">
-            <button type="submit" class="btn btn-danger">Удалить товар</button>
+    <div class="row justify-content-center">
+        <div th:each="image: ${product.images}" class="d-flex justify-content-center p-2">
+            <img th:src="'/images/'+${image.id}" height="150 px" class="border border-success"><br><br>
         </div>
-    </form>
-</div>
+    </div>
+    <div th:unless="${authUser==null}">
+    <div class="d-flex justify-content-center m-3" th:if="${product.user.id == authUser.id} or ${authUser.isAdmin()}">
+        <form th:action="@{'/product/delete/'+${product.id}}" class="form-inline" method="post">
+            <div class="form-group">
+                <button type="submit" class="btn btn-danger">Удалить товар</button>
+            </div>
+        </form>
+    </div>
+    </div>
 </div>
 </main>
 <footer th:insert="fragment/footer :: footer-bs-4"></footer>
