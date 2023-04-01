@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -55,10 +56,10 @@
         <div th:if="${#lists.isEmpty(user.products)}" class="d-flex justify-content-center p-2">
             <h5 class="text-danger">Товаров нет</h5>
         </div>
+        <div sec:authorize="hasRole('LEAD')">
         <h4 class="text-center text-primary">Права пользователя: <span th:text="${user.name}"
                                                                        class="text-warning"></span>
         </h4>
-
         <div class="d-flex justify-content-center">
             <table class="table table-bordered table-hover table-responsive-md table-dark text-white-50">
                 <thead>
@@ -76,6 +77,7 @@
                 </tr>
                 </tbody>
             </table>
+        </div>
         </div>
 
     </div>

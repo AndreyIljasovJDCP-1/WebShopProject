@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -68,8 +69,8 @@
     </div>
     <br>
 
-    <div class="d-flex justify-content-center">
-        <button th:if="${authUser ne null}" class="btn btn-info" data-toggle="collapse" data-target="#add">Добавить
+    <div class="d-flex justify-content-center" sec:authorize="hasAuthority('WRITE_PRIVILEGE')">
+        <button class="btn btn-info" data-toggle="collapse" data-target="#add">Добавить
             товар
         </button>
     </div>

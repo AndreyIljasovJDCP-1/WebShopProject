@@ -93,7 +93,7 @@ public class User implements UserDetails {
         return roles.stream()
                 .distinct()
                 .filter(role -> role.getName().equals(roleName))
-                .flatMap(role -> role.getPrivileges().stream().map(Privilege::getName))
+                .flatMap(role -> role.getListPrivileges().stream())
                 .toList();
     }
 
