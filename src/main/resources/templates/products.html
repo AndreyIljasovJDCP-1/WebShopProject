@@ -13,8 +13,11 @@
 <body id="table" style="background: black;">
 <header th:insert="fragment/navbar :: header-bs-4"></header>
 <main class="container pt-5">
+    <h2 class="container m-3 text-center text-success">
+        Welcome: <b th:text="${authUser ne null}?${authUser.name}:' Anonymous'" class="text-warning"></b>
+    </h2>
 <div th:if="${images ne null}" class="container col-6 mt-3">
-    <h2 class="text-center text-info">Слайд-шоу</h2>
+    <h3 class="text-center text-info">Слайд-шоу</h3>
     <div class="d-flex justify-content-center">
         <div id="carouselExampleIndicators" class="carousel slide carousel-fade" data-ride="carousel">
             <div class="carousel-inner"  >

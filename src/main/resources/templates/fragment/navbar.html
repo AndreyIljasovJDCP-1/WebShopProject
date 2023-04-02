@@ -19,11 +19,11 @@
                     <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
                         Служебные
                     </a>
-                    <div  class="dropdown-menu" role="navigation">
+                    <div  class="dropdown-menu bg-dark" role="navigation">
                         <span th:if="${authUser.isAdmin()}">
                             <a th:href="@{/admin/user}" class="dropdown-item" style="color:blueviolet">Панель Администратора</a>
                         </span>
-                        <a class="dropdown-item" href="#" th:href="@{/user/{id}(id=${authUser.id})}" style="color:darkcyan;">USER INFO</a>
+                        <a class="dropdown-item" href="#" th:href="@{/user/{id}(id=${authUser.id})}" style="color:darkcyan;">Информация о пользователе</a>
                     </div>
                 </li>
             </ul>
