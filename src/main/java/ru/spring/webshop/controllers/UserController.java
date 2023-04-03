@@ -18,6 +18,12 @@ public class UserController {
     @Autowired
     UserService userService;
 
+    @GetMapping("/about")
+    public String about(Model model, Principal principal) {
+        model.addAttribute("authUser", userService.getUserByPrincipal(principal));
+        return "about";
+    }
+
     @GetMapping("/login")
     public String login(Model model, Principal principal) {
         model.addAttribute("authUser", userService.getUserByPrincipal(principal));
@@ -45,11 +51,5 @@ public class UserController {
         model.addAttribute("user", user);
         model.addAttribute("authUser", userService.getUserByPrincipal(principal));
         return "user-info";
-    }
-
-    @GetMapping("/about")
-    public String about(Model model, Principal principal) {
-        model.addAttribute("authUser", userService.getUserByPrincipal(principal));
-        return "about";
     }
 }
