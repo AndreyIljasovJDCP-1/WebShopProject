@@ -13,15 +13,16 @@
 <header th:insert="fragment/navbar :: header-bs-4"></header>
 <main class="container pt-5">
     <div class="container pt-3 col-8">
-        <h4 class="text-center text-success">Подробная информация о пользователе: <span th:text="${user.name}"
+        <h4 class="text-center text-success">Подробная информация о пользователе <span th:text="${user.name}"
                                                                                         class="text-warning"></span>
-        </h4>
+            <img src="#" th:if="${user.avatar ne null}" th:src="@{/images/{id}(id=${user.avatar.id})}" height="50 px"
+                 class="border border-success"></h4>
         <span class="text-info">Номер телефона: <b th:text="${user.phoneNumber}"
                                                       class="text-success"></b>
         </span><br>
         <span class="text-info">Email: <b th:text="${user.email}" class="text-success"></b>
         </span><br>
-        <h4 class="text-center text-primary">Товары пользователя: <span th:text="${user.name}"
+        <h4 class="text-center text-primary">Товары пользователя <span th:text="${user.name}"
                                                                         class="text-warning"></span>
         </h4>
 
@@ -57,29 +58,43 @@
             <h5 class="text-danger">Товаров нет</h5>
         </div>
         <div sec:authorize="hasRole('LEAD')">
-        <h4 class="text-center text-primary">Права пользователя: <span th:text="${user.name}"
-                                                                       class="text-warning"></span>
-        </h4>
-        <div class="d-flex justify-content-center">
-            <table class="table table-bordered table-hover table-responsive-md table-dark text-white-50">
-                <thead>
-                <tr class="bg-primary text-white">
-                    <td>№ п/п</td>
-                    <td>Роли</td>
-                    <td>Привилегии</td>
-                </tr>
-                </thead>
-                <tbody th:each="role,i : ${user.getRoleList()}">
-                <tr class="text-white-50 ">
-                    <td th:text="${i.count}"></td>
-                    <td th:text="${role}"></td>
-                    <td th:text="${user.getPrivilegeList(role)}"></td>
-                </tr>
-                </tbody>
-            </table>
+            <h4 class="text-center text-primary">Права пользователя <span th:text="${user.name}"
+                                                                           class="text-warning"></span>
+            </h4>
+            <div class="d-flex justify-content-center">
+                <table class="table table-bordered table-hover table-responsive-md table-dark text-white-50">
+                    <thead>
+                    <tr class="bg-primary text-white">
+                        <td>№ п/п</td>
+                        <td>Роли</td>
+                        <td>Привилегии</td>
+                    </tr>
+                    </thead>
+                    <tbody th:each="role,i : ${user.getRoleList()}">
+                    <tr class="text-white-50 ">
+                        <td th:text="${i.count}"></td>
+                        <td th:text="${role}"></td>
+                        <td th:text="${user.getPrivilegeList(role)}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
+        <div th:if="${user.id == authUser.id} or ${authUser.isAdmin()}">
+            <h5 class="text-primary text-center"> Добавить или изменить аватарку
+                <span th:text="${user.name}"class="text-warning"></span>
+            </h5>
+            <form th:action="@{/avatar/{user}(user=${user.id})}" method="post" enctype="multipart/form-data">
+                <div class="form-row justify-content-between">
+                    <div class="form-group">
+                        <input class="form-control-file text-success" type="file" name="foto" required>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-success btn-sm">Добавить/изменить фото</button>
+                    </div>
+                </div>
+            </form>
         </div>
-
     </div>
 </main>
 <footer th:insert="fragment/footer :: footer-bs-4"></footer>
