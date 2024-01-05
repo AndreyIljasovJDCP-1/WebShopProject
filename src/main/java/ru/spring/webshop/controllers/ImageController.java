@@ -1,5 +1,6 @@
 package ru.spring.webshop.controllers;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.MediaType;
@@ -12,9 +13,9 @@ import ru.spring.webshop.repositories.ImagesRepository;
 import java.io.ByteArrayInputStream;
 
 @RestController
+@RequiredArgsConstructor
 public class ImageController {
-    @Autowired
-    ImagesRepository imagesRepository;
+    private final ImagesRepository imagesRepository;
 
     @GetMapping("/images/{id}")
     public ResponseEntity<?> getImageById(@PathVariable Long id) {
@@ -23,6 +24,5 @@ public class ImageController {
                 .contentType(MediaType.valueOf(image.getContentType()))
                 .contentLength(image.getSize())
                 .body(new InputStreamResource(new ByteArrayInputStream(image.getBytes())));
-
     }
 }

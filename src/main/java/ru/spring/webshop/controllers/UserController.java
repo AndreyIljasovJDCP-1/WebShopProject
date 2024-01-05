@@ -1,5 +1,6 @@
 package ru.spring.webshop.controllers;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -16,9 +17,9 @@ import java.io.IOException;
 import java.security.Principal;
 
 @Controller
+@RequiredArgsConstructor
 public class UserController {
-    @Autowired
-    UserService userService;
+    private final UserService userService;
 
     @GetMapping("/about")
     public String about(Model model, Principal principal) {

@@ -1,6 +1,6 @@
 package ru.spring.webshop.controllers;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,20 +15,15 @@ import ru.spring.webshop.services.UserService;
 import java.security.Principal;
 
 @Controller
+@RequiredArgsConstructor
 @RequestMapping("/admin/user")
 @PreAuthorize("hasAuthority('ROLE_ADMIN')")
 public class AdminController {
 
-    @Autowired
-    UserService userService;
-    @Autowired
-    RoleRepository roleRepository;
-
-    @Autowired
-    PrivilegeRepository privilegeRepository;
-
-    @Autowired
-    RoleService roleService;
+    private final UserService userService;
+    private final RoleRepository roleRepository;
+    private final PrivilegeRepository privilegeRepository;
+    private final RoleService roleService;
 
     @GetMapping()
     public String admin(Model model, Principal principal) {

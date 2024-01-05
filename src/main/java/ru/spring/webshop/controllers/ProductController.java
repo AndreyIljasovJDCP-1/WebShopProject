@@ -1,7 +1,7 @@
 package ru.spring.webshop.controllers;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,14 +19,11 @@ import java.security.Principal;
 
 @Slf4j
 @Controller
+@RequiredArgsConstructor
 public class ProductController {
-    @Autowired
-    ProductService service;
-    @Autowired
-    UserService userService;
-    @Autowired
-    ImagesRepository imagesRepository;
-
+    private final ProductService service;
+    private final UserService userService;
+    private final ImagesRepository imagesRepository;
 
     @GetMapping("/")
     public String products(
